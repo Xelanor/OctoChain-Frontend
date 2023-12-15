@@ -3,7 +3,7 @@ import { Box, Text, Heading, Container } from "@chakra-ui/react";
 import { Route, Routes } from "react-router-dom";
 
 import Navbar from "./components/Navbar/Navbar";
-import Homepage from "./pages/homepage";
+import Homepage from "./pages/Homepage";
 import FutureArbitrage from "./pages/FutureArbitrage";
 
 function App() {

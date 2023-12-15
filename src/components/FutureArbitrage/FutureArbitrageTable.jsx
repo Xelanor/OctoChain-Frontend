@@ -18,8 +18,9 @@ import {
   Select,
   Flex,
   Text,
-  Box,
   Stack,
+  Image,
+  Box,
 } from "@chakra-ui/react";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import { NumericFormat } from "react-number-format";
@@ -43,7 +44,19 @@ function HomepageTable({ arbitragesData }) {
       accessorKey: "long.base",
       cell: (row) => {
         return (
-          <Text fontWeight="semibold">{row.getValue().toUpperCase()}</Text>
+          <Stack alignItems={"center"} spacing="2" direction={"row"}>
+            <Image
+              height="24px"
+              width="24px"
+              objectFit="contain"
+              color={"white"}
+              src={`https://raw.githubusercontent.com/Pymmdrza/Cryptocurrency_Logos/5f1b6a0588adeca87fb3259df2b65b0047dafc54/SVG/${row
+                .getValue()
+                .toLowerCase()}.svg`}
+              alt="Logo"
+            />
+            <Text fontWeight="semibold">{row.getValue().toUpperCase()}</Text>
+          </Stack>
         );
       },
     },
@@ -61,6 +74,7 @@ function HomepageTable({ arbitragesData }) {
                 bg="red.400"
                 px="1"
                 color="red.800"
+                userSelect={"none"}
               >
                 S
               </Text>
@@ -73,6 +87,7 @@ function HomepageTable({ arbitragesData }) {
                 bg="green.400"
                 px="1"
                 color="green.800"
+                userSelect={"none"}
               >
                 B
               </Text>

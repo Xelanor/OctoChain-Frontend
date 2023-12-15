@@ -18,6 +18,8 @@ import {
   Select,
   Flex,
   Text,
+  Stack,
+  Image,
 } from "@chakra-ui/react";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import { NumericFormat } from "react-number-format";
@@ -30,7 +32,21 @@ function HomepageTable({ tickersData }) {
       header: "Symbol",
       accessorKey: "symbol",
       cell: (row) => {
-        return <Text fontWeight="semibold">{row.getValue()}</Text>;
+        return (
+          <Stack alignItems={"center"} spacing="2" direction={"row"}>
+            <Image
+              height="24px"
+              width="24px"
+              objectFit="contain"
+              color={"white"}
+              src={`https://raw.githubusercontent.com/Pymmdrza/Cryptocurrency_Logos/5f1b6a0588adeca87fb3259df2b65b0047dafc54/SVG/${row.row.original.base.toLowerCase()}.svg`}
+              alt="Logo"
+              fallbackSrc="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png"
+            />
+
+            <Text fontWeight="semibold">{row.getValue().toUpperCase()}</Text>
+          </Stack>
+        );
       },
     },
     {
