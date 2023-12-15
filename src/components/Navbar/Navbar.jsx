@@ -62,8 +62,8 @@ const MenuToggle = ({ toggle, isOpen }) => {
 
 const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
   return (
-    <Link href={to}>
-      <Text display="block" {...rest}>
+    <Link _hover={{ textDecoration: "none" }} href={to}>
+      <Text fontSize={"18"} display="block" {...rest}>
         {children}
       </Text>
     </Link>
@@ -84,19 +84,18 @@ const MenuLinks = ({ isOpen }) => {
         pt={[4, 4, 0, 0]}
       >
         <MenuItem to="/">Home</MenuItem>
-        <MenuItem to="/how">Exchanges</MenuItem>
-        <MenuItem to="/faetures">Long/Short</MenuItem>
+        <MenuItem to="/future">Future Arbitrages</MenuItem>
         <MenuItem to="/signup" isLast>
           <Button
-            size="sm"
+            size="md"
             rounded="md"
             color={["primary.500", "primary.500", "white", "white"]}
-            bg={["white", "white", "primary.500", "primary.500"]}
+            bg={["#0b6bcb"]}
             _hover={{
-              bg: ["primary.100", "primary.100", "primary.600", "primary.600"],
+              bg: ["#185ea5"],
             }}
           >
-            Sair
+            Login
           </Button>
         </MenuItem>
       </Stack>
