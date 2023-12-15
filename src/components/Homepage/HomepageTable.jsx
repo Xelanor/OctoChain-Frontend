@@ -100,7 +100,7 @@ function HomepageTable({ tickersData }) {
 
   const [sorting, setSorting] = useState([
     {
-      id: "totalQuoteVolume",
+      id: "quoteVolume",
       desc: true,
     },
   ]);
