@@ -1,7 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Container,
-  Link,
   Box,
   Flex,
   Text,
@@ -62,8 +62,8 @@ const MenuToggle = ({ toggle, isOpen }) => {
 
 const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
   return (
-    <Link _hover={{ textDecoration: "none" }} href={to}>
-      <Text fontSize={"18"} display="block" {...rest}>
+    <Link to={to}>
+      <Text fontSize={"18"} fontWeight={"semibold"} display="block" {...rest}>
         {children}
       </Text>
     </Link>
@@ -84,7 +84,8 @@ const MenuLinks = ({ isOpen }) => {
         pt={[4, 4, 0, 0]}
       >
         <MenuItem to="/">Home</MenuItem>
-        <MenuItem to="/future">Future Arbitrages</MenuItem>
+        <MenuItem to="/FutureArbitrage">Future Arbitrages</MenuItem>
+        <MenuItem to="/SpotArbitrage">Spot Arbitrages</MenuItem>
         <MenuItem to="/signup" isLast>
           <Button
             size="md"

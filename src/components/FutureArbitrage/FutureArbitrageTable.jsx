@@ -25,6 +25,7 @@ import {
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import { NumericFormat } from "react-number-format";
 import { WarningTwoIcon } from "@chakra-ui/icons";
+import exchanges from "../exchanges";
 
 function HomepageTable({ arbitragesData }) {
   const data = useMemo(() => arbitragesData, []);
@@ -35,7 +36,13 @@ function HomepageTable({ arbitragesData }) {
       accessorKey: "long.exchange",
       cell: (row) => {
         return (
-          <Text fontWeight="semibold">{row.getValue().toUpperCase()}</Text>
+          <Image
+            width="28"
+            height="10"
+            objectFit="contain"
+            src={exchanges[row.getValue()].logo}
+            alt="Logo"
+          />
         );
       },
     },
@@ -151,6 +158,22 @@ function HomepageTable({ arbitragesData }) {
       },
     },
     {
+      header: "real apr",
+      accessorKey: "real_apr",
+      cell: (row) => {
+        return (
+          <Text fontWeight="semibold">
+            <NumericFormat
+              displayType={"text"}
+              value={row.getValue() * 100}
+              suffix="%"
+              decimalScale={2}
+            />
+          </Text>
+        );
+      },
+    },
+    {
       header: "days remaining",
       accessorKey: "days_to_maturity",
       cell: (row) => {
@@ -161,7 +184,7 @@ function HomepageTable({ arbitragesData }) {
 
   const [sorting, setSorting] = useState([
     {
-      id: "apr",
+      id: "real_apr",
       desc: true,
     },
   ]);
