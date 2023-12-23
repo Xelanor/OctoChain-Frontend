@@ -302,7 +302,13 @@ function SpotArbitrageTable({ arbitragesData }) {
                   </Td>
                 ))}
               </Tr>
-              {details === row.id && <SpotArbitrageDetails />}
+              <Tr>
+                <td colSpan={20}>
+                  {details === row.id && (
+                    <SpotArbitrageDetails arbitrage={data[details]} />
+                  )}
+                </td>
+              </Tr>
             </>
           ))}
         </Tbody>
