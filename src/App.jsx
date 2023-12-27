@@ -7,6 +7,7 @@ import Homepage from "./pages/Homepage";
 import FutureArbitrage from "./pages/FutureArbitrage";
 import SpotArbitrage from "./pages/SpotArbitrage";
 import Octofolio from "./pages/Octofolio";
+import HedgeBot from "./pages/HedgeBot";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/SpotArbitrage" element={<SpotArbitrage />} />
         {/* </Container> */}
         <Route path="/Octofolio" element={<Octofolio />} />
+        <Route path="/HedgeBot" element={<HedgeBot />} />
       </Routes>
     </>
   );

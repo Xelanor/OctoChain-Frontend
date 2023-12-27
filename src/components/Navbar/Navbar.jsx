@@ -87,6 +87,7 @@ const MenuLinks = ({ isOpen }) => {
         <MenuItem to="/FutureArbitrage">Future Arbitrages</MenuItem>
         <MenuItem to="/SpotArbitrage">Spot Arbitrages</MenuItem>
         <MenuItem to="/Octofolio">Octofolio</MenuItem>
+        <MenuItem to="/HedgeBot">HedgeBot</MenuItem>
         <MenuItem to="/signup" isLast>
           <Button
             size="md"
