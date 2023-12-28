@@ -1,4 +1,6 @@
 import React, { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   useReactTable,
   getCoreRowModel,
@@ -22,14 +24,15 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { NumericFormat } from "react-number-format";
-import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
+import { TriangleDownIcon, TriangleUpIcon, ViewIcon } from "@chakra-ui/icons";
 
 function HedgeBotTable({ botsData }) {
   const data = useMemo(() => botsData, []);
+  const navigate = useNavigate();
 
   const columns = [
     {
-      header: "exchange",
+      header: "Symbol",
       accessorKey: "tick",
       cell: (row) => {
         return (
@@ -44,6 +47,32 @@ function HedgeBotTable({ botsData }) {
 
             <div className="font-semibold">{row.getValue()}</div>
           </Stack>
+        );
+      },
+    },
+    {
+      header: "Open",
+      accessorKey: "open_spot",
+      cell: (row) => {
+        return (
+          <div className="font-semibold">
+            {row.getValue()}/{row.row.original.open_hedge}
+          </div>
+        );
+      },
+    },
+    {
+      header: "Profit",
+      accessorKey: "total_profit",
+      cell: (row) => {
+        return (
+          <NumericFormat
+            className="font-semibold"
+            displayType={"text"}
+            value={row.getValue().toFixed(2)}
+            prefix="$"
+            thousandSeparator={true}
+          />
         );
       },
     },
@@ -93,8 +122,8 @@ function HedgeBotTable({ botsData }) {
       },
     },
     {
-      header: "Min Profit Rate",
-      accessorKey: "min_profit",
+      header: "Min Open Profit Rate",
+      accessorKey: "min_open_profit",
       cell: (row) => {
         return (
           <NumericFormat
@@ -107,64 +136,31 @@ function HedgeBotTable({ botsData }) {
       },
     },
     {
-      header: "Holdings",
-      accessorKey: "asset_value",
-      cell: (row) => {
-        return (
-          <div className="flex flex-col">
-            <NumericFormat
-              className="font-semibold"
-              displayType={"text"}
-              value={row.getValue()}
-              prefix="$"
-              decimalScale={2}
-              thousandSeparator={true}
-            />
-            <div className="flex space-x-1 text-sm font-semibold">
-              <div className="text-gray-300">
-                {row.row.original.asset_quantity}
-              </div>
-              <div className="text-gray-300">{row.row.original.symbol}</div>
-            </div>
-          </div>
-        );
-      },
-    },
-    {
-      header: "Avg. Buy Price",
-      accessorKey: "average_cost",
+      header: "Min Close Profit Rate",
+      accessorKey: "min_close_profit",
       cell: (row) => {
         return (
           <NumericFormat
-            className="font-semibold"
             displayType={"text"}
-            value={row.getValue()}
-            prefix="$"
+            value={row.getValue() * 100}
+            suffix="%"
             decimalScale={2}
-            thousandSeparator={true}
           />
         );
       },
     },
     {
-      header: "Profit/Loss",
-      accessorKey: "asset_profit",
+      header: "",
+      accessorKey: "transactions",
       cell: (row) => {
         return (
-          <div className="flex flex-col">
-            <NumericFormat
-              className="font-semibold"
-              displayType={"text"}
-              value={row.getValue()}
-              prefix="$"
-              decimalScale={2}
-              thousandSeparator={true}
-            />
-            <NumericFormat
-              displayType={"text"}
-              value={row.row.original.asset_profit_percentage * 100}
-              suffix="%"
-              decimalScale={2}
+          <div className="cursor-pointer">
+            <ViewIcon
+              onClick={() =>
+                navigate("/HedgeBot/tx", { state: row.row.original })
+              }
+              w={5}
+              h={5}
             />
           </div>
         );
@@ -174,7 +170,7 @@ function HedgeBotTable({ botsData }) {
 
   const [sorting, setSorting] = useState([
     {
-      id: "real_apr",
+      id: "tick",
       desc: true,
     },
   ]);
