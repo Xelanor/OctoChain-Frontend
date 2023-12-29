@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
 
 import {
   useReactTable,
@@ -24,8 +25,6 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { NumericFormat } from "react-number-format";
-import moment from "moment";
-import Moment from "react-moment";
 
 const decimalPlaces = (number) => {
   if (-Math.floor(Math.log(number) / Math.log(10) + 1) >= 0) {
@@ -57,10 +56,7 @@ function HedgeBotTxTable({ txData }) {
       cell: (row) => {
         return (
           <div className="font-semibold">
-            <Moment
-              date={moment(parseInt(row.getValue()) * 1000)}
-              format="DD.MM.YYYY HH:MM"
-            />
+            {format(parseInt(row.getValue()) * 1000, "dd.M.y HH:mm")}
           </div>
         );
       },
