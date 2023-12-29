@@ -13,19 +13,17 @@ import {
   Th,
   Td,
   chakra,
-  Button,
-  Select,
-  Flex,
-  Text,
   Stack,
   Image,
-  Box,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { NumericFormat } from "react-number-format";
-import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
+import { TriangleDownIcon, TriangleUpIcon, AddIcon } from "@chakra-ui/icons";
+import OctofolioNewTransaction from "./OctofolioNewTransaction";
 
 function OctofolioTable({ assetsData }) {
   const data = useMemo(() => assetsData, []);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const columns = [
     {
@@ -130,6 +128,17 @@ function OctofolioTable({ assetsData }) {
         );
       },
     },
+    {
+      header: "",
+      accessorKey: "buy",
+      cell: (row) => {
+        return (
+          <div onClick={onOpen} className="text-gray-500 cursor-pointer p-2">
+            <AddIcon boxSize={4} />
+          </div>
+        );
+      },
+    },
   ];
 
   const [sorting, setSorting] = useState([
@@ -193,6 +202,7 @@ function OctofolioTable({ assetsData }) {
           ))}
         </Tbody>
       </Table>
+      <OctofolioNewTransaction isOpen={isOpen} onClose={onClose} />
     </>
   );
 }
