@@ -84,7 +84,7 @@ function SpotArbitrageTable({ arbitragesData }) {
     },
     {
       header: "sell",
-      accessorKey: "to.exchange",
+      accessorKey: "hedge.exchange",
       cell: (row) => {
         return (
           <Image

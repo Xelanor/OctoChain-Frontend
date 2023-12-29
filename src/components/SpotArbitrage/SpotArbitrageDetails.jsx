@@ -17,7 +17,6 @@ const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function SpotArbitrageDetails({ arbitrage }) {
   const [fromBoard, setFromBoard] = useState();
-  const [toBoard, setToBoard] = useState();
   const [hedgeBoard, setHedgeBoard] = useState();
 
   const fetchData = () => {
@@ -25,13 +24,11 @@ export default function SpotArbitrageDetails({ arbitrage }) {
       .post(`${baseUrl}/api/crypto/spot-arb-details`, {
         symbol: arbitrage.from.symbol,
         from_exc: arbitrage.from.exchange,
-        to_exc: arbitrage.to.exchange,
         hedge_symbol: arbitrage.hedge.symbol,
         hedge_exc: arbitrage.hedge.exchange,
       })
       .then((res) => {
         setFromBoard(res.data.details.from_board);
-        setToBoard(res.data.details.to_board);
         setHedgeBoard(res.data.details.hedge_board);
       });
   };
@@ -86,7 +83,7 @@ export default function SpotArbitrageDetails({ arbitrage }) {
 
   return (
     <Box>
-      {fromBoard && toBoard && hedgeBoard && (
+      {fromBoard && hedgeBoard && (
         <Flex justifyContent={"space-between"}>
           <OrderBook
             exchange={arbitrage.from.exchange}
@@ -133,56 +130,7 @@ export default function SpotArbitrageDetails({ arbitrage }) {
                   )
                 )}
             </Box>
-
-            <Divider my="4" />
-
-            <Heading mb="4" size="lg">
-              To: {arbitrage.to.exchange.toUpperCase()}
-            </Heading>
-            <NetworkInfo arbitrage={arbitrage.to} />
-
-            <Box pl="4">
-              <Heading size="md" my="4">
-                Supported Networks
-              </Heading>
-              {arbitrage.to.currencyDetails.networks &&
-                Object.keys(arbitrage.to.currencyDetails.networks).map(
-                  (network) => (
-                    <Stack
-                      key={
-                        arbitrage.to.currencyDetails.networks[network].network
-                      }
-                      spacing="2"
-                      direction="row"
-                      alignItems={"center"}
-                    >
-                      <Text>
-                        {arbitrage.to.currencyDetails.networks[network].network}
-                        :
-                      </Text>
-                      {withdrawDepositStatus(
-                        arbitrage.to.currencyDetails.networks[network]
-                          .withdraw ||
-                          arbitrage.to.currencyDetails.networks[network]
-                            .withdrawEnable
-                      )}{" "}
-                      /{" "}
-                      {withdrawDepositStatus(
-                        arbitrage.to.currencyDetails.networks[network]
-                          .deposit ||
-                          arbitrage.to.currencyDetails.networks[network]
-                            .depositEnable
-                      )}
-                    </Stack>
-                  )
-                )}
-            </Box>
           </Box>
-          <OrderBook
-            exchange={arbitrage.to.exchange}
-            board={toBoard}
-            depthItemCount={8}
-          />
           <OrderBook
             exchange={arbitrage.hedge.exchange}
             board={hedgeBoard}
