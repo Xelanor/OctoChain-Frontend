@@ -27,7 +27,7 @@ import { NumericFormat } from "react-number-format";
 import { TriangleDownIcon, TriangleUpIcon, ViewIcon } from "@chakra-ui/icons";
 
 function HedgeBotTable({ botsData }) {
-  const data = useMemo(() => botsData, []);
+  const data = useMemo(() => botsData, [botsData]);
   const navigate = useNavigate();
 
   const columns = [
@@ -168,12 +168,7 @@ function HedgeBotTable({ botsData }) {
     },
   ];
 
-  const [sorting, setSorting] = useState([
-    {
-      id: "tick",
-      desc: true,
-    },
-  ]);
+  const [sorting, setSorting] = useState([]);
 
   const table = useReactTable({
     data,

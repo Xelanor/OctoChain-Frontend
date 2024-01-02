@@ -7,8 +7,9 @@ function HedgeBotTx() {
   console.log(state);
 
   return (
-    <main className="px-2">
-      <div className="text-xl font-bold pb-5">Hedge Bots</div>
+    <main className="px-4">
+      <div className="text-xl font-bold pb-5">Hedge Bot Transactions</div>
+      <div className="text-xl font-bold pb-5 text-gray-400">{state.tick}</div>
       <HedgeBotTxTable txData={state.transactions} />
     </main>
   );
